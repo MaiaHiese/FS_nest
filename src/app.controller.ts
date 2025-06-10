@@ -1,12 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService, iTrack } from './app.service';
 
-@Controller('api')
+/* Acá tengo el método solo de lectura del método appService */
+
+@Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {} // instancia de app service
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('api') // petición, redirigida al endpoint ("api")
+  getTracks(): iTrack[] { 
+    return this.appService.getTracks();
   }
 }

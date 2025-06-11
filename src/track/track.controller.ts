@@ -4,7 +4,17 @@ nest generate controller track
 nest generate service track
 */
 
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { TrackService } from './track.service';
+import { Track } from './track.interface';
+/*import { iTrack } from 'src/app.service';*/ 
 
 @Controller('track')
-export class TrackController {}
+export class TrackController {
+    constructor(private readonly  trackService: TrackService) {}
+
+    @Get()
+    getTracks(): Promise<Track[]> {
+        return this.trackService.getTracks();
+    }
+}

@@ -3,7 +3,7 @@ import { AppService, iTrack } from './app.service';
 
 /* Acá tengo el método solo de lectura del método appService */
 
-@Controller()
+@Controller() // Trabaja sobre la ruta base
 export class AppController {
   constructor(private readonly appService: AppService) {} // instancia de app service
 

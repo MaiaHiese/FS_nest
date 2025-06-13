@@ -9,6 +9,6 @@ export class AppController {
 
   @Get('api') // petición, redirigida al endpoint ("api")
   getTracks(): string { 
-    return this.appService.getTracks();
+    return this.appService.getHello();
   }
 }

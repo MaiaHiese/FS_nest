@@ -48,7 +48,7 @@ me haga esa petición (que la tengo en el controlador)  */
 
 @Injectable() // esto se llama "consumirlo" no sé bien qué sería
 export class AppService {
-  getTracks(): string {
+  getHello(): string {
     return "hola";
   }
 }

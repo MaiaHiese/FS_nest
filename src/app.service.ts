@@ -46,7 +46,7 @@ guardado en mi variable (en este caso, la lista de canciones).
 Pero para que yo pueda visualizar esto tengo que tener un método que 
 me haga esa petición (que la tengo en el controlador)  */
 
-@Injectable()
+@Injectable() // esto se llama "consumirlo" no sé bien qué sería
 export class AppService {
   getTracks(): string {
     return "hola";

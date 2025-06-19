@@ -4,17 +4,21 @@ nest generate controller track
 nest generate service track
 */
 
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { TrackService } from './track.service';
 import { Track } from './track.interface';
 /*import { iTrack } from 'src/app.service';*/ 
 
-@Controller('track')
+@Controller()
 export class TrackController {
     constructor(private readonly  trackService: TrackService) {}
 
-    @Get()
+    @Get('track')
     getTracks(): Promise<Track[]> {
         return this.trackService.getTracks();
+    }
+    @Get('/track/:id')
+    getTrackById(@Param('id') id: number): Promise<Track> {
+        return this.trackService.getTrackById(id);
     }
 }

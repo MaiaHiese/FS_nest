@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/fsolava/client/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/scripts.js"></script>
 </head>
 <body>
     <header>
@@ -16,8 +17,37 @@
             </ul>   
         </nav>
     </header>
-    <button>Consultar BD</button>
+
+
+<button id="obtener datos">Consultar BD</button>
+
+
 <h1>Mensaje del backend:</h1>
+<ol id = "lista-canciones" class="lista-canciones"></ol>
+<div id="resultados"></div>
+
+<form action="" id="form-cancion" class="formulario">
+    <label>
+        Título:
+        <input type="text" id="titulo" required>
+    </label>
+
+    <label>
+        Duración (en seg.)
+        <input type="number" id="duracion" required>
+    </label>
+
+    <label>
+        Título:
+        <input type="text" id="artista" required>
+    </label>
+
+    <button type="submit">Agregar canción</button>
+
+
+
+</form>
+
 
 </body>
 </html>

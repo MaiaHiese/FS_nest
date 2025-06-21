@@ -1,4 +1,55 @@
+nav ul {
+    display: flex;
+    gap: 2cm;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: blue
+}
+
 h1 {
     color:blueviolet;
     font-size: 30px;
+}
+
+.lista-canciones{
+    padding-left: 2cm;
+}
+
+.lista-canciones > li {
+    margin-bottom: 1cm;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.lista-canciones ul {
+padding-left: 20px;
+}
+
+.lista-canciones ul li {
+    list-style-type: disc;
+}
+
+.formulario {
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0, 5),
+}
+
+.formulario input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    font-size: 18px;
 }

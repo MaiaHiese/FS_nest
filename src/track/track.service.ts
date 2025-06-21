@@ -31,8 +31,10 @@ export class TrackService {
 
     private async setId(): Promise<number> { //este método solo lo va a usar el creatTrack, por eso lo hacemos privado
       const tracks = await this.getTracks();
-      const id = tracks[tracks.length-1].id + 1;
-      return id;
+      const lastTrack = tracks[tracks.length - 1];
+      const lastId = Number(lastTrack.id); // aseguramos que sea número
+      const newId = lastId + 1;
+      return newId;
     }
 
       async getTrackById(id: number): Promise<Track> {

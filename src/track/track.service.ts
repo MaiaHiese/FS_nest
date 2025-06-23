@@ -1,11 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { Track } from './track.interface';
+import { parse } from 'path';
 
 const BASE_URL = 'http://localhost:3030/tracks/';
 
 @Injectable()
 
 export class TrackService {
+
+  async updateTrackById(id: number, body: Track): Promise<Track | undefined> {
+    const isTrack = await this.getTrackById(id);
+    if (!Object.keys(isTrack).length) return;
+    const updateTrack = { ...body, id};
+    console.log('Pista actualizada', updateTrack.title);
+    const res = await fetch (BASE_URL + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updateTrack)
+    })
+    const parsed = await res.json();
+    return parsed;
+  }
+
   async deleteTrackById (id:number): Promise<Track> {
     const res = await fetch (BASE_URL + id, {
       method: 'DELETE',      
@@ -13,8 +31,6 @@ export class TrackService {
     const parsed = res.json();
     return parsed;
   }
-
-
 
     async createTrack(track: Track): Promise <Track> {
       const idn = await this.setId();

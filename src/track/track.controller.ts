@@ -4,7 +4,7 @@ nest generate controller track
 nest generate service track
 */
 
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TrackService } from './track.service';
 import { Track } from './track.interface';
 /*import { iTrack } from 'src/app.service';*/
@@ -28,5 +28,10 @@ export class TrackController {
     @Post()
     createTrack(@Body() body: Track): Promise<Track> {
     return this.trackService.createTrack(body); //el metodo createTrack no existe en el service, tenemos que crearlo 
+    }
+
+    @Delete(':id')
+    deleteTrackId(@Param('id') id: number): Promise <Track> {
+        return this.trackService.deleteTrackById(id);
     }
 }

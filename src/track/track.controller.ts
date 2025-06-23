@@ -18,19 +18,26 @@ export class TrackController {
         return this.trackService.getTracks();
     }
     
-    /*@Get(':id')
+    /* primero lo teníamos así: 
+    @Get(':id')
     getTrackById(@Param('id') id: number): Promise <Track | undefined> {
         return this.trackService.getTrackById(id);
     }*/
-
+   
+    /* 2) Antes de aprender a usar los filtros de excepción, teníamos la lógica acá:
     @Get(':id')
-  async getTrackById(@Res() response,  @Param('id') id: number): Promise<Track> {
+    async getTrackById(@Res() response,  @Param('id') id: number): Promise<Track> {
     const responseFormService = await this.trackService.getTrackById(id);
+
     if (responseFormService && Object.keys(responseFormService).length) {
       return response.status(HttpStatus.OK).json(responseFormService);
     } else {
       return response.status(HttpStatus.NOT_FOUND).json({error: 'No se encontró el recurso en la BD'})
-    }
+    }*/
+
+    @Get(':id')
+    getTrackById(@Param('id') id: number): Promise <Track | undefined> {
+    return this.trackService.getTrackById(id);
   }
 
 /* para usar postman, tenemos que indicarle al controlador

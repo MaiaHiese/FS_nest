@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Body, Injectable, NotFoundException } from '@nestjs/common';
 import { Track } from './track.interface';
 import { parse } from 'path';
 
@@ -75,6 +75,7 @@ export class TrackService {
       return newId;
     }
 
+    /*Así tenía el getTrackById antes de aplicar los filtros de excepción 
       async getTrackById(id: number): Promise <Track | undefined> {
         const res = await fetch (BASE_URL + id);
         console.log("Estado: " + res.status)
@@ -96,5 +97,26 @@ export class TrackService {
     const parsed = await res.json();
     return parsed;
       }
+    */
+
+    async getTrackById(id: number): Promise <Track | undefined> {
+        const res = await fetch (BASE_URL + id);
+        
+        try {
+          const parsed = await res.json();
+          if (Object.keys(parsed).length) return parsed;
+          
+          } catch (err) {
+            console.log(err)
+            throw new NotFoundException('No se encontró el id')
+         }
+        }
+      
+    async getTracks(): Promise <Track[]> {
+    const res = await fetch(BASE_URL)
+    const parsed = await res.json();
+    return parsed;
+      }
+
 }
 

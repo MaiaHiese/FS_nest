@@ -8,20 +8,32 @@ const BASE_URL = 'http://localhost:3030/tracks/';
 
 export class TrackService {
 
-  async updateTrackById(id: number, body: Track): Promise<Track | undefined> {
-    const isTrack = await this.getTrackById(id);
-    if (!Object.keys(isTrack).length) return;
+  async updateTrackById(id: number, body: Track): Promise <Track | undefined> {
+    const isTrack: Track | undefined = await this.getTrackById(id);
+
+    if (!isTrack || !Object.keys(isTrack).length) {
+      console.warn(`Track con id ${id} no encontrado`);
+      return;
+    }
+
     const updateTrack = { ...body, id};
     console.log('Pista actualizada', updateTrack.title);
+
     const res = await fetch (BASE_URL + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updateTrack)
-    })
-    const parsed = await res.json();
-    return parsed;
+    });
+    // const parsed = await res.json();
+    // return parsed; estas dos líneas, al agregar el httpcodes y no mostrar
+    // no necesitamos, era para validación interna nuestra
+
+    if(!res.ok) {
+      console.log('El track no se pudo actualizar')
+      return;
+    }
   }
 
   async deleteTrackById (id:number): Promise<Track> {
@@ -63,10 +75,20 @@ export class TrackService {
       return newId;
     }
 
-      async getTrackById(id: number): Promise<Track> {
+      async getTrackById(id: number): Promise <Track | undefined> {
         const res = await fetch (BASE_URL + id);
-        const parsed = await res.json();
-        return parsed;
+        console.log("Estado: " + res.status)
+
+        if (!res.ok){
+          return undefined
+        }
+
+        try {
+          return await res.json();
+          } catch (err) {
+            console.log(err)
+            return undefined;
+          }
         }
       
     async getTracks(): Promise <Track[]> {

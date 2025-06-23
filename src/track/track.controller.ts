@@ -4,7 +4,7 @@ nest generate controller track
 nest generate service track
 */
 
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { TrackService } from './track.service';
 import { Track } from './track.interface';
 /*import { iTrack } from 'src/app.service';*/
@@ -17,16 +17,27 @@ export class TrackController {
     getTracks(): Promise<Track[]> {
         return this.trackService.getTracks();
     }
-    @Get(':id')
-    getTrackById(@Param('id') id: number): Promise<Track> {
+    
+    /*@Get(':id')
+    getTrackById(@Param('id') id: number): Promise <Track | undefined> {
         return this.trackService.getTrackById(id);
+    }*/
+
+    @Get(':id')
+  async getTrackById(@Res() response,  @Param('id') id: number): Promise<Track> {
+    const responseFormService = await this.trackService.getTrackById(id);
+    if (responseFormService && Object.keys(responseFormService).length) {
+      return response.status(HttpStatus.OK).json(responseFormService);
+    } else {
+      return response.status(HttpStatus.NOT_FOUND).json({error: 'No se encontró el recurso en la BD'})
     }
+  }
 
 /* para usar postman, tenemos que indicarle al controlador
     que se comunique con el service y le indique dónde postear y etc. */
 
     @Post()
-    createTrack(@Body() body: Track): Promise<Track> {
+    createTrack(@Body() body: Track): Promise <Track> {
     return this.trackService.createTrack(body); //el metodo createTrack no existe en el service, tenemos que crearlo 
     }
 

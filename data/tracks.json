@@ -13,10 +13,10 @@
       "artist": "interprete 2"
     },
     {
-      "id": "3",
       "title": "cancion 3",
-      "duration": 220,
-      "artist": "interprete 3"
+      "duration": 1130,
+      "artist": "interprete 3",
+      "id": "3"
     }
   ]
 }

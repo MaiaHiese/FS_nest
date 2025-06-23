@@ -4,7 +4,7 @@ nest generate controller track
 nest generate service track
 */
 
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { TrackService } from './track.service';
 import { Track } from './track.interface';
 /*import { iTrack } from 'src/app.service';*/
@@ -36,6 +36,7 @@ export class TrackController {
     }
 
     @Put(':id')
+    @HttpCode(204)
     updateTrackById(@Param('id') id: number, @Body() body): Promise <Track | undefined> {
         return this.trackService.updateTrackById(id, body)
     }

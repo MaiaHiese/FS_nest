@@ -7,6 +7,7 @@ nest generate service track
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, Res } from '@nestjs/common';
 import { TrackService } from './track.service';
 import { Track } from './track.interface';
+import { TrackDto } from './track.dto';
 /*import { iTrack } from 'src/app.service';*/
 
 @Controller('track') // antes lo tenia en el segundo get
@@ -43,11 +44,20 @@ export class TrackController {
 /* para usar postman, tenemos que indicarle al controlador
     que se comunique con el service y le indique dónde postear y etc. */
 
+    /* método post antes de hacer DTO  
+
     @Post()
     createTrack(@Body() body: Track): Promise <Track> {
     return this.trackService.createTrack(body); //el metodo createTrack no existe en el service, tenemos que crearlo 
     }
+    */
 
+    /* */ 
+    @Post()
+    createTrack(@Body() trackDto: TrackDto): Promise<any> {
+    return this.trackService.createTrack(trackDto); // lo tengo que agregar al service en el metodo create track
+    }
+    
     @Delete(':id')
     deleteTrackId(@Param('id') id: number): Promise <Track> {
         return this.trackService.deleteTrackById(id);
